@@ -14,7 +14,9 @@ init() ->
 insert(Msisdn, Name,Age, Address, Main_balance, Total_used_data, Data_balance)
 when is_integer(Msisdn),is_integer(Age),is_number(Main_balance),
 is_number(Total_used_data),is_number(Data_balance)->
-	
+	Len= string:len(integer_to_list(Msisdn)),
+	case Len of 
+		10->
 				Fun = fun() ->
 					mnesia:write(#subscriber_profile{ msisdn = Msisdn,
 														name = Name,
@@ -25,6 +27,8 @@ is_number(Total_used_data),is_number(Data_balance)->
 														data_balance = Data_balance} )
 						end,
 				mnesia:transaction(Fun);
+		_->{cant_insert_msisdn_length_not_correct}
+	end;
 insert(_, _,_,_, _, _, _)->{cant_insert}.  
   
 lookup(Msisdn) ->
