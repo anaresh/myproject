@@ -94,7 +94,7 @@ age(Age) ->
 			1
      end;
    false ->
-       io:format("~n Sorry, please enter the Age in number~n"),
+       io:format("~n Sorry, please enter the Age in number(integer)~n"),
 	   0
   end.
           
@@ -114,10 +114,10 @@ change(Msisdn,New_Main_balance,New_Total_used_data,New_Data_balance) ->
 	0 ->
        io:format("~n");
 	1 ->
-       io:format("~n Msisdn is in number ~n"),	   
+       %io:format("~n Msisdn is in number ~n"),	   
   B=case is_number(New_Main_balance) of
      true ->
-	    io:format("~n New_Main_balance is ~p ~n",[New_Main_balance]),
+	   % io:format("~n New_Main_balance is ~p ~n",[New_Main_balance]),
 		case Msisdn of 
 			Msisdn when Msisdn > 0 ->
 			       1;
@@ -131,7 +131,7 @@ change(Msisdn,New_Main_balance,New_Total_used_data,New_Data_balance) ->
     end,
   C=case is_number(New_Total_used_data) of
      true ->
-	     io:format("~n New_Total_used_data is ~p ~n",[New_Total_used_data]),
+	    % io:format("~n New_Total_used_data is ~p ~n",[New_Total_used_data]),
 		 1;	     
 	 false ->
 	     io:format("~n Sorry, please enter the New_Total_used_data in number~n"),
@@ -139,7 +139,7 @@ change(Msisdn,New_Main_balance,New_Total_used_data,New_Data_balance) ->
     end,
   D=case is_number(New_Data_balance) of
      true ->
-	     io:format("~n New_Data_balance is ~p ~n",[New_Data_balance]),
+	     %io:format("~n New_Data_balance is ~p ~n",[New_Data_balance]),
 		 1;	     
 	 false ->
 	     io:format("~n Sorry, please enter the New_Data_balance in number ~n"),
@@ -147,17 +147,17 @@ change(Msisdn,New_Main_balance,New_Total_used_data,New_Data_balance) ->
     end,
   if 
     A =:= 1 , B =:= 1, C =:= 1, D =:= 1 ->
-	    Value=service_handler:look_up_msisdn(provisioning,Msisdn),
-		io:format("~n Value is ~p ~n",[Value]),		 
+	    %Value=service_handler:look_up_msisdn(provisioning,Msisdn),
+		%io:format("~n Value is ~p ~n",[Value]),		 
 		case service_handler:look_up_msisdn(provisioning,Msisdn) of
 			[] ->
-				io:format("~n This Msisdn have no data ~n");
+				io:format("~n ~p Msisdn is not present in the database ~n",[Msisdn]);
 				
 			{Name,Age,Address,_,_,_} ->
 				service_handler:update(provisioning,Msisdn,{Name,Age, Address, New_Main_balance, New_Total_used_data, New_Data_balance}),
 				io:format("~n Successfully! New balance is added into the database ~n"),
-				Value1=service_handler:look_up_msisdn(provisioning,Msisdn),
-				io:format("~n Value is ~p ~n",[Value1])
+				Value=service_handler:look_up_msisdn(provisioning,Msisdn),
+				io:format("~n New Value is ~p ~n",[Value])
 		end;
 		
 	true ->
@@ -176,7 +176,7 @@ modify(Msisdn,New_Name,New_Age,New_Address) ->
      A =:= 1 , B =:= 1, C =:= 1, D =:= 1 ->
 		case service_handler:look_up_msisdn(provisioning,Msisdn) of
 		  [] ->
-		      io:format("~n ~p Msisdn is not present in the db ~n",[Msisdn]);
+		      io:format("~n ~p Msisdn is not present in the database ~n",[Msisdn]);
 			  
 		  {_,_,_,Main_balance,Total_used_data,Data_balance} ->
 		 service_handler:update(provisioning,Msisdn,{New_Name,New_Age, New_Address, Main_balance, Total_used_data, Data_balance}),
