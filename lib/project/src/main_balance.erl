@@ -3,23 +3,19 @@
 -import(service_handler,[look_up_msisdn/2,update/3]).
 
 %% Getting the inputs (Msisdn,Amount) from the user.
-%% To check whether the given amount is in integer or not.
-%% To check whether the given amount is under the specified limit.
-
 main_balance_usage(Msisdn,Amount)->
-
     Min_amount=config:get_env(main_balance_usage,min_amount,1),
     Max_amount=config:get_env(main_balance_usage,max_amount,100),
-%%Min_amount=1,
-%%Max_amount=100,
-   %%{Main_balance}=service_handler:look_up_msisdn(main_balance,Msisdn),
 case service_handler:look_up_msisdn(main_balance,Msisdn) of
 		[]->
 				io:format("Incorrect Msisdn! ~n");
 		{Main_balance}->  
+%% To check whether the given amount is in integer or not.
 case is_number(Amount) of 
     false -> io:format("Invalid! The amount should be in integer or float ~n");
     true -> 
+
+%% To check whether the given amount is under the specified limit.
 case Amount of		 
 		Amount when Amount < Min_amount ; Amount > Max_amount ->
                io:format("Invalid !! Amount not under limit!! ~n");	          
