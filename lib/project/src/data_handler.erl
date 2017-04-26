@@ -26,7 +26,7 @@ data_usage(Msisdn,Data_Usage) when is_number(Data_Usage),is_number(Msisdn)  ->
 										io:format("current balance: ~p ~n Your internet access is blocked, current data balance is lesser than 10KB~n",[New_Data_balance]);
 							New_Data_balance when  New_Data_balance < 100  ->
 								io:format("current balance: ~p ~nPlease top up your data balance, it is lesser than 100KB~n",[New_Data_balance]);
-							_->ok
+							_->success
 						end;				
 				_->	io:format("this data usage can not be redeemed, against company policy~n",[])
 			end
