@@ -21,7 +21,9 @@ recharge_main(Msisdn,Amount) ->
 										New_Main_balance when New_Main_balance > Fixed_amount -> 
 												io:format("failed to recharge!!!");
 										_-> 		
-											service_handler:update(recharge,Msisdn,{New_Main_balance,Data_balance})
+											service_handler:update(recharge,Msisdn,{New_Main_balance,Data_balance}),
+                                                                                        io:format("Last Updated main balance is ~p ~n",[New_Main_balance])
+                                                     
 									end
 						end
 			end					
@@ -46,7 +48,8 @@ recharge_data(Msisdn,Data) ->
 										New_Data_balance when New_Data_balance > Fixed_data ->
 											io:format("failed to recharge because more than 500000kb is not available");
 										_->  
-											service_handler:update(recharge,Msisdn,{Main_balance,New_Data_balance})
+											service_handler:update(recharge,Msisdn,{Main_balance,New_Data_balance}),
+                                                                                        io:format("Last Updated data balance is ~p ~n",[New_Data_balance])
 									end
 						end
 			end			
