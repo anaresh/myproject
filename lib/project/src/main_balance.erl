@@ -25,7 +25,7 @@ case Amount of
                io:format("Invalid !! Amount not under limit!! ~n");	          
 
        Amount when Amount >= Min_amount , Amount =< Max_amount ->
-               io:format("Your transaction is on process  ~n"),
+               io:format("Your transaction is on process ~n"),
 	               check_for_main_balance(Msisdn,Main_balance,Amount)
     end
   end
