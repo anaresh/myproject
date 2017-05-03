@@ -1,3 +1,7 @@
+%%---------------------------------------------
+%%%%%% Author : Mohit Choudhary
+%%%%%%%% -------------------------------------------
+
 -module(service_handler).
 -compile(export_all).
 -import(db,[look_up/1,update/7]).

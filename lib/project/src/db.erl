@@ -1,3 +1,7 @@
+%%---------------------------------------------
+%%%%%% Author : Mohit Choudhary
+%%%%%%%% -------------------------------------------
+
 -module(db).
 -compile(export_all).
 -include_lib("subscriber_profile.hrl"). 
