@@ -1,9 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Author: vijayalakshmidk
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
 -module(main_balance).
 -export([main_balance_usage/2,check_for_main_balance/3,transaction/3,main_balance_after_transaction/1]).
 -import(service_handler,[look_up_msisdn/2,update/3]).
 
 %% Getting the inputs (Msisdn,Amount) from the user.
 main_balance_usage(Msisdn,Amount)->
+%% Configs for the transaction_limits
     Min_amount=config:get_env(main_balance_usage,min_amount,1),
     Max_amount=config:get_env(main_balance_usage,max_amount,100),
 case service_handler:look_up_msisdn(main_balance,Msisdn) of
@@ -18,7 +22,7 @@ case is_number(Amount) of
 %% To check whether the given amount is under the specified limit.
 case Amount of		 
 		Amount when Amount < Min_amount ; Amount > Max_amount ->
-               io:format("Invalid !! Amount not under limit!! ~n");	          
+               io:format("Invalid! Amount not under limit! ~n");	          
 
        Amount when Amount >= Min_amount , Amount =< Max_amount ->
                io:format("Your transaction is on process ~n"),
@@ -31,7 +35,7 @@ end.
 check_for_main_balance(Msisdn,Main_balance,Amount) ->
 case Main_balance of
     0 ->
-     io:format("Blocked!! Please recharge your account soon!! ~n");
+     io:format("Blocked! Please recharge your account soon! ~n");
    Main_balance when Main_balance < Amount ->
      io:format("Sorry! Your Main_balance is less for this transaction ~n Please recharge you account soon ~n");  
    Main_balance when Main_balance >= Amount ->
@@ -49,11 +53,11 @@ transaction(Msisdn,Main_balance,Amount) ->
 main_balance_after_transaction(New_main_balance)-> 
 case New_main_balance of 
   New_main_balance when New_main_balance =:= 0 ; New_main_balance =:= 0.0 ->
-         io:format("Blocked!! Please recharge your account soon!! ~n");
+         io:format("Blocked! Please recharge your account soon! ~n");
   New_main_balance when New_main_balance < 10, New_main_balance > 0.0 ->
          io:format (" Your balance is less than Rs.10 ~n Please recharge your account ~n");
   New_main_balance when New_main_balance > 10 ->
-         io:format("Success!! ~n")        
+         io:format("Success! ~n")        
 end.
 
 
