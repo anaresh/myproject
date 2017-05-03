@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%   Author: vijayalakshmidk
+%%%   Author: Vijayalakshmi DK
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
 -module(main_balance).
 -export([main_balance_usage/2,check_for_main_balance/3,transaction/3,main_balance_after_transaction/1]).
